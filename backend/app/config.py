@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
     DEBUG: bool = False
 
-    # Database
-    DATABASE_URL: str = "postgresql://investiq:investiq_secure_2024@localhost:5432/investiq_africa"
+    # Database (SQLite for local dev, PostgreSQL for production)
+    DATABASE_URL: str = "sqlite:///./investiq_africa.db"
 
     # JWT Auth
     SECRET_KEY: str = "your-secret-key-change-in-production"

@@ -2,15 +2,18 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, Boolean, DateTime
-from sqlalchemy.dialects.postgresql import UUID
 from app.database import Base
+
+
+def gen_uuid():
+    return str(uuid.uuid4())
 
 
 class User(Base):
     """Platform users with role-based access control."""
     __tablename__ = "users"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=gen_uuid)
     email = Column(String(255), unique=True, nullable=False, index=True)
     hashed_password = Column(String(255), nullable=False)
     full_name = Column(String(255))

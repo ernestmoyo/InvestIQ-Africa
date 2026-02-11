@@ -2,15 +2,18 @@
 import uuid
 from datetime import datetime, date
 from sqlalchemy import Column, String, Float, Date, DateTime
-from sqlalchemy.dialects.postgresql import UUID
 from app.database import Base
+
+
+def gen_uuid():
+    return str(uuid.uuid4())
 
 
 class MacroeconomicIndicator(Base):
     """Zimbabwe macroeconomic indicators from ZIMSTAT, RBZ, World Bank, IMF."""
     __tablename__ = "macroeconomic_indicators"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=gen_uuid)
     indicator_name = Column(String(100), nullable=False)
     value = Column(Float, nullable=False)
     period = Column(Date, nullable=False)

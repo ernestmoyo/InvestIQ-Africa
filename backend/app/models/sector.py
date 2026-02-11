@@ -2,16 +2,19 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, Float, Boolean, Text, DateTime
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.database import Base
+
+
+def gen_uuid():
+    return str(uuid.uuid4())
 
 
 class Sector(Base):
     """Zimbabwe investment sectors aligned with ZIDA priority areas."""
     __tablename__ = "sectors"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=gen_uuid)
     name = Column(String(100), nullable=False)
     code = Column(String(10), unique=True, nullable=False)
     description = Column(Text)

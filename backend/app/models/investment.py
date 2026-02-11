@@ -2,26 +2,29 @@
 import uuid
 from datetime import datetime, date
 from sqlalchemy import Column, String, Float, Integer, Boolean, Text, Date, DateTime, ForeignKey, JSON
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.database import Base
+
+
+def gen_uuid():
+    return str(uuid.uuid4())
 
 
 class Investment(Base):
     """Investment records from ZIDA licensing data."""
     __tablename__ = "investments"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=gen_uuid)
     project_name = Column(String(255), nullable=False)
     investor_name = Column(String(255))
     investor_country = Column(String(100))
-    sector_id = Column(UUID(as_uuid=True), ForeignKey("sectors.id"), nullable=True)
+    sector_id = Column(String(36), ForeignKey("sectors.id"), nullable=True)
     investment_amount_usd = Column(Float, nullable=False)
     jobs_created = Column(Integer, default=0)
     jobs_projected = Column(Integer)
     licence_type = Column(String(50))  # investment_licence, special_licence, sez_permit
     status = Column(String(50))  # inquiry, approved, active, completed, withdrawn
-    sez_id = Column(UUID(as_uuid=True), ForeignKey("special_economic_zones.id"), nullable=True)
+    sez_id = Column(String(36), ForeignKey("special_economic_zones.id"), nullable=True)
     date_received = Column(Date)
     date_approved = Column(Date, nullable=True)
     date_operational = Column(Date, nullable=True)
@@ -41,7 +44,7 @@ class SpecialEconomicZone(Base):
     """Zimbabwe Special Economic Zones."""
     __tablename__ = "special_economic_zones"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=gen_uuid)
     name = Column(String(255), nullable=False)
     location_province = Column(String(100))
     total_area_hectares = Column(Float)

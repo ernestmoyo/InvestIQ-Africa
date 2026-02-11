@@ -2,16 +2,19 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, Float, Boolean, Text, DateTime, ForeignKey, JSON
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.database import Base
+
+
+def gen_uuid():
+    return str(uuid.uuid4())
 
 
 class InvestorProfile(Base):
     """Investor profiles for matching engine."""
     __tablename__ = "investor_profiles"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=gen_uuid)
     company_name = Column(String(255), nullable=False)
     country_of_origin = Column(String(100))
     investor_type = Column(String(50))  # corporate, private_equity, sovereign_fund, dfi, individual
@@ -34,17 +37,17 @@ class InvestmentOpportunity(Base):
     """Available investment opportunities in Zimbabwe."""
     __tablename__ = "investment_opportunities"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=gen_uuid)
     title = Column(String(255), nullable=False)
     description = Column(Text)
-    sector_id = Column(UUID(as_uuid=True), ForeignKey("sectors.id"), nullable=True)
+    sector_id = Column(String(36), ForeignKey("sectors.id"), nullable=True)
     province = Column(String(100))
     district = Column(String(100))
     minimum_investment = Column(Float)
     maximum_investment = Column(Float)
     expected_return_rate = Column(Float)
     risk_level = Column(String(20))  # low, medium, high
-    sez_id = Column(UUID(as_uuid=True), ForeignKey("special_economic_zones.id"), nullable=True)
+    sez_id = Column(String(36), ForeignKey("special_economic_zones.id"), nullable=True)
     jv_available = Column(Boolean, default=False)
     local_partner_available = Column(Boolean, default=False)
     incentives = Column(JSON)
