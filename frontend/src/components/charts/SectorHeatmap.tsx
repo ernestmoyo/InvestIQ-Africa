@@ -42,7 +42,7 @@ export default function SectorHeatmap({ data, layout = 'vertical', height = 300,
         <YAxis dataKey="name" type="category" tick={{ fontSize: 10 }} width={75} />
         <Tooltip formatter={(v: number) => [`$${v}M`, valueLabel]} contentStyle={{ borderRadius: 8, fontSize: 12 }} />
         <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-          {data.map((entry, i) => (
+          {data.map((_, i) => (
             <Cell key={i} fill={CHART_COLORS.palette[i % CHART_COLORS.palette.length]} />
           ))}
         </Bar>

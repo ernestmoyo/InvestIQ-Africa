@@ -1,4 +1,4 @@
-import { Building2, MapPin, DollarSign, Target, Shield } from 'lucide-react';
+import { Building2, MapPin, DollarSign, Target } from 'lucide-react';
 
 interface InvestorProfile {
   id?: string;

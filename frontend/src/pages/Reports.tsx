@@ -36,7 +36,7 @@ export default function Reports() {
   const filteredReports = filter === 'all' ? mockReports : mockReports.filter(r => r.type === filter);
   const reportTypes = [...new Set(mockReports.map(r => r.type))];
 
-  const handleGenerate = (templateName: string) => {
+  const handleGenerate = (_templateName: string) => {
     setGenerating(true);
     setTimeout(() => setGenerating(false), 2000);
   };
