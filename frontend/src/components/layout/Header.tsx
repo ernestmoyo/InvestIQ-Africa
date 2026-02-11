@@ -35,7 +35,7 @@ export default function Header() {
           <div className="w-8 h-8 bg-[#009739] rounded-full flex items-center justify-center">
             <User size={16} className="text-white" />
           </div>
-          <span className="text-xs text-gray-400">Powered by ZIDA</span>
+          <span className="text-xs text-gray-400">Powered by 7Square</span>
         </div>
       </div>
     </header>
